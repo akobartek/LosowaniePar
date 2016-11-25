@@ -1,5 +1,4 @@
 /*
-	WIELKI PROJEKT PROGRAMISTOW ZE SPOLKI ZOO "WROBLEWSKI"
 	created by Bartek && Denis
 */
 
