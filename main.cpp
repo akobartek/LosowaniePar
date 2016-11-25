@@ -21,7 +21,7 @@ int main()
 	setlocale(LC_ALL, "");
 	
 	fstream plik, plik2, plik3;
-	int ileOsob, licznik;
+	int ile_osob, licznik;
 	int os1, os2;
 	string wybor, imie, nazwisko, osoba, line;
 	string osoba1, osoba2;
@@ -34,63 +34,66 @@ int main()
 	{
 		plik.open("Lista.txt", ios::out);
 		cout << "Z ilu osób mam losować?: ";
-		cin >> ileOsob;
-		plik << ileOsob << endl;
+		cin >> ile_osob;
+		plik << ile_osob << endl;
 		cout << "Format wpisywania osób:" << endl << "imię nazwisko" << endl << "np. Jan Kowalski\n\n";
 
-		for (int numerOsoby = 1; numerOsoby <= ileOsob; numerOsoby++)
+		for (int numer_osoby = 1; numer_osoby <= ile_osob; numer_osoby++)
 		{
-			cout << "Podaj imię i nazwisko osoby numer " << numerOsoby << ": ";
+			cout << "Podaj imię i nazwisko osoby numer " << numer_osoby << ": ";
 			cin >> imie >> nazwisko;
 			osoba = imie + " " + nazwisko;
-			plik << numerOsoby << " " << osoba << endl;
+			plik << numer_osoby << " " << osoba << endl;
 		}
 		plik.close();
+		
+		plik2.open("Pary.txt", ios::out);
+		plik2.close();
 	}
 		
 	plik.open("Lista.txt", ios::in);
 	getline(plik, line);
 	ileOsob = atoi(line.c_str());
-	string * listaOsob = new string[ileOsob];
-	list <int> listaLicznikow;
+	string * lista_osob = new string[ile_osob];
+	list <int> lista_licznikow;
 
-	for (int indeksOsoby = 0; indeksOsoby < ileOsob; indeksOsoby++)
+	for (int indeks_osoby = 0; indeks_osoby < ile_osob; indeks_osoby++)
 	{
 		plik >> licznik >> imie >> nazwisko;
 		osoba = imie + " " + nazwisko;
-		listaOsob[indeksOsoby] = osoba;
-		listaLicznikow.push_back(licznik);
+		lista_osob[indeksOsoby] = osoba;
+		lista_licznikow.push_back(licznik);
 	}
 
 	plik.close();
 	plik2.open("Pary.txt", ios::in | ios::out | ios::app);
 	plik3.open("Wyniki.txt", ios::out);
 
-	if (ileOsob % 2 == 0)
+	if (ile_osob % 2 == 0)
 	{
-		for (int liczbaLosowan = 1; liczbaLosowan <= (ileOsob / 2); liczbaLosowan++)
+		for (int liczba_losowan = 1; liczba_losowan <= (ile_osob / 2); liczba_losowan++)
 		{
-			line = losuj(listaLicznikow, ileOsob);
+			line = losuj(lista_licznikow, ile_osob);
 			plik2 << line << endl;
 			stringstream stream(line);
 			stream >> os1 >> os2;
-			plik3 << listaOsob[os1-1] << " + " << listaOsob[os2-1] << endl;
+			plik3 << lista_osob[os1-1] << " + " << lista_osob[os2-1] << endl;
 		}
 	}
 
 	else
 	{
-		for (int liczbaLosowan = 1; liczbaLosowan <= (ileOsob / 2); liczbaLosowan++)
+		for (int liczba_losowan = 1; liczba_losowan <= (ile_osob / 2); liczba_losowan++)
 		{
-			line = losuj(listaLicznikow, ileOsob);
+			line = losuj(lista_licznikow, ile_osob);
 			plik2 << line << endl;
 			stringstream stream(line);
 			stream >> os1 >> os2;
-			plik3 << listaOsob[os1 - 1] << " + " << listaOsob[os2 - 1] << endl;
+			plik3 << lista_osob[os1 - 1] << " + " << lista_osob[os2 - 1] << endl;
 		}
-		list<int>::iterator it = listaLicznikow.begin();
+		list<int>::iterator it = lista_licznikow.begin();
 		os1 = *it;
-		plik3 << endl << "Niewylosowano: " << listaOsob[os1 - 1] << "! Dodaj tę osobę do ostatniej pary!" << endl;
+		plik3 << endl << "Niewylosowano: " << lista_osob[os1 - 1] << "! Dodaj tę osobę do ostatniej pary!" << endl;
 	}
 
 	plik2.close();
@@ -98,7 +101,7 @@ int main()
 
 	cout << "\n\nLosowanie zostało zakończone, wyniki znajdziesz w pliku Wyniki.txt" << endl << "Wcisnij enter aby zakończyć" << endl;
 	
-	delete[] listaOsob;
+	delete[] lista_osob;
 	getchar();
 	getchar();
 	return 0;
@@ -121,7 +124,7 @@ bool czy_znaleziono(string para1, string para2) {
 	return false;
 }
 
-string losuj(list <int> &lista, int iloscOsob)
+string losuj(list <int> &lista, int ilosc_osob)
 {
 	fstream plik3;
 	int osoba1, osoba2;
@@ -137,12 +140,12 @@ string losuj(list <int> &lista, int iloscOsob)
 		found1 = found2 = false;
 		while(found1 == false)
 		{
-			osoba1 = (rand() % iloscOsob) + 1;
+			osoba1 = (rand() % ilosc_osob) + 1;
 			found1 = (find(lista.begin(), lista.end(), osoba1) != lista.end());
 		}
 		while (found2 == false)
 		{
-			osoba2 = (rand() % iloscOsob) + 1;
+			osoba2 = (rand() % ilosc_osob) + 1;
 			found2 = (find(lista.begin(), lista.end(), osoba2) != lista.end());
 		}
 		
