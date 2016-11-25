@@ -18,6 +18,8 @@ string losuj(list<int> &, int);
 
 int main()
 {
+	setlocale(LC_ALL, "");
+	
 	fstream plik, plik2, plik3;
 	int ileOsob, licznik;
 	int os1, os2;
@@ -25,20 +27,20 @@ int main()
 	string osoba1, osoba2;
 
 	
-	cout << "Witaj w programie!\n\nCzy chcesz zrobic nowa liste osob? TAK / NIE\n";
+	cout << "Witaj w programie!\n\nCzy chcesz zrobić nową listę osób? TAK / NIE\n";
 	cin >> wybor;
 	cout << "\n\n";
 	if (wybor == "TAK" || wybor == "tak" || wybor == "Tak")\
 	{
 		plik.open("Lista.txt", ios::out);
-		cout << "Z ilu osob mam losowac?: ";
+		cout << "Z ilu osób mam losować?: ";
 		cin >> ileOsob;
 		plik << ileOsob << endl;
-		cout << "Format wpisywania osob:" << endl << "imie nazwisko" << endl << "np. Jan Kowalski\n\n";
+		cout << "Format wpisywania osób:" << endl << "imię nazwisko" << endl << "np. Jan Kowalski\n\n";
 
 		for (int numerOsoby = 1; numerOsoby <= ileOsob; numerOsoby++)
 		{
-			cout << "Podaj imie i nazwisko osoby numer " << numerOsoby << ": ";
+			cout << "Podaj imię i nazwisko osoby numer " << numerOsoby << ": ";
 			cin >> imie >> nazwisko;
 			osoba = imie + " " + nazwisko;
 			plik << numerOsoby << " " << osoba << endl;
@@ -88,13 +90,13 @@ int main()
 		}
 		list<int>::iterator it = listaLicznikow.begin();
 		os1 = *it;
-		plik3 << endl << "Niewylosowano: " << listaOsob[os1 - 1] << "! Dodaj te osobe do ostatniej pary!" << endl;
+		plik3 << endl << "Niewylosowano: " << listaOsob[os1 - 1] << "! Dodaj tę osobę do ostatniej pary!" << endl;
 	}
 
 	plik2.close();
 	plik3.close();
 
-	cout << "\n\nLosowanie zostalo zakonczone, wyniki znajdziesz w pliku Wyniki.txt" << endl << "Wcisnij enter aby zakonczyc" << endl;
+	cout << "\n\nLosowanie zostało zakończone, wyniki znajdziesz w pliku Wyniki.txt" << endl << "Wcisnij enter aby zakończyć" << endl;
 	
 	delete[] listaOsob;
 	getchar();
