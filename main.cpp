@@ -26,16 +26,16 @@ int main()
 	string osoba1, osoba2;
 
 	
-	cout << "Witaj w programie do losowania Emausow!\n\nCzy chcesz zrobic nowa liste osob? TAK / NIE\n";
+	cout << "Witaj w programie!\n\nCzy chcesz zrobic nowa liste osob? TAK / NIE\n";
 	cin >> wybor;
 	cout << "\n\n";
 	if (wybor == "TAK" || wybor == "tak" || wybor == "Tak")\
 	{
-		plik.open("czlonkowie.txt", ios::out);
-		cout << "Ile osob liczy twoja wspolnota: ";
+		plik.open("Lista.txt", ios::out);
+		cout << "Z ilu osob mam losowac?: ";
 		cin >> ileOsob;
 		plik << ileOsob << endl;
-		cout << "Format wpisywania osob:" << endl << "imie nazwisko" << endl << "np. Grzegorz Dudek\n\n";
+		cout << "Format wpisywania osob:" << endl << "imie nazwisko" << endl << "np. Jan Kowalski\n\n";
 
 		for (int numerOsoby = 1; numerOsoby <= ileOsob; numerOsoby++)
 		{
@@ -47,7 +47,7 @@ int main()
 		plik.close();
 	}
 		
-	plik.open("czlonkowie.txt", ios::in);
+	plik.open("Lista.txt", ios::in);
 	getline(plik, line);
 	ileOsob = atoi(line.c_str());
 	string * listaOsob = new string[ileOsob];
@@ -62,8 +62,8 @@ int main()
 	}
 
 	plik.close();
-	plik2.open("pary.txt", ios::in | ios::out | ios::app);
-	plik3.open("emausy.txt", ios::out);
+	plik2.open("Pary.txt", ios::in | ios::out | ios::app);
+	plik3.open("Wyniki.txt", ios::out);
 
 	if (ileOsob % 2 == 0)
 	{
@@ -95,7 +95,7 @@ int main()
 	plik2.close();
 	plik3.close();
 
-	cout << "\n\nEmausy zostaly wylosowane, znajdziesz je w pliku emausy.txt" << endl << "Wcisnij enter aby zakonczyc" << endl;
+	cout << "\n\nLosowanie zostalo zakonczone, wyniki znajdziesz w pliku Wyniki.txt" << endl << "Wcisnij enter aby zakonczyc" << endl;
 	
 	delete[] listaOsob;
 	getchar();
@@ -106,12 +106,10 @@ int main()
 
 
 
-
-
 bool czy_znaleziono(string para1, string para2) {
 	fstream plik3;
 	string line;
-	plik3.open("pary.txt", ios::in);
+	plik3.open("Pary.txt", ios::in);
 
 	while (!(plik3.eof()))
 	{
@@ -127,7 +125,7 @@ string losuj(list <int> &lista, int iloscOsob)
 	fstream plik3;
 	int osoba1, osoba2;
 	string os1, os2, para1, para2, line;
-	plik3.open("pary.txt", ios::in | ios::out | ios::app);
+	plik3.open("Pary.txt", ios::in | ios::out | ios::app);
 
 	srand(time(NULL));
 	bool res = false;
